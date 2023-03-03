@@ -14,11 +14,12 @@ class Section extends Model
     protected $table = 'sections';
     protected $fillable = [
         'name',
+        'class_id',
     ];
 
     public function classes(): BelongsTo
     {
-        return $this->belongsTo(Classes::class);
+        return $this->belongsTo(Classes::class, 'class_id');
     }
 
     public function students(): HasMany
