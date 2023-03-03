@@ -17,11 +17,11 @@ class Classes extends Model
 
     public function sections(): HasMany
     {
-        return $this->hasMany(Section::class);
+        return $this->hasMany(Section::class, 'class_id');
     }
 
     public function students(): HasMany
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Section::class, 'class_id');
     }
 }
