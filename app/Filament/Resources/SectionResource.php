@@ -22,7 +22,7 @@ class SectionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-view-list';
 
-    protected static ?string $navigationGroup = 'Management System';
+    protected static ?string $navigationGroup = 'Students Management';
 
     public static function form(Form $form): Form
     {
@@ -53,6 +53,9 @@ class SectionResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('students_count')
+                    ->label('Students Count')
+                    ->counts('students'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
