@@ -21,12 +21,12 @@ class Student extends Model
         'address',
     ];
 
-    public function classes(): BelongsTo
+    public function class(): BelongsTo
     {
         return $this->belongsTo(Classes::class, 'class_id');
     }
 
-    public function sections(): BelongsTo
+    public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
     }

@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ClassesResource\Pages;
-use App\Filament\Resources\ClassesResource\RelationManagers;
+use App\Filament\Resources\SectionResource\Pages;
+use App\Filament\Resources\SectionResource\RelationManagers;
 use App\Models\Classes;
+use App\Models\Section;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -14,11 +16,11 @@ use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ClassesResource extends Resource
+class SectionResource extends Resource
 {
-    protected static ?string $model = Classes::class;
+    protected static ?string $model = Section::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-book-open';
+    protected static ?string $navigationIcon = 'heroicon-o-view-list';
 
     protected static ?string $navigationGroup = 'Management System';
 
@@ -26,12 +28,16 @@ class ClassesResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('class_id')
+                    ->label('Class')
+                    ->required()
+                    ->autofocus()
+                    ->options(Classes::all()->pluck('name', 'id')),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->unique()
-                    ->autofocus()
                     ->maxLength(255)
-                    ->placeholder('Enter the name of the Class'),
+                    ->placeholder('Enter the name of the Section'),
             ]);
     }
 
@@ -39,11 +45,15 @@ class ClassesResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('class.name')
+                    ->label('Class')
+                    ->sortable()
+                    ->searchable()
+                    ->limit(12),
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->sortable()
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
@@ -70,9 +80,9 @@ class ClassesResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClasses::route('/'),
-            'create' => Pages\CreateClasses::route('/create'),
-            'edit' => Pages\EditClasses::route('/{record}/edit'),
+            'index' => Pages\ListSections::route('/'),
+            'create' => Pages\CreateSection::route('/create'),
+            'edit' => Pages\EditSection::route('/{record}/edit'),
         ];
     }
 }
