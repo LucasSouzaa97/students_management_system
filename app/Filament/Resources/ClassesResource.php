@@ -81,4 +81,9 @@ class ClassesResource extends Resource
             'edit' => Pages\EditClasses::route('/{record}/edit'),
         ];
     }
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::$model::count();
+    }
 }
