@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\DeleteAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TagsColumn;
 
 class ClassesResource extends Resource
 {
@@ -42,6 +43,11 @@ class ClassesResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
                     ->searchable(),
+                TagsColumn::make('sections.name')
+                    ->label('Sections'),
+                Tables\Columns\TextColumn::make('students_count')
+                    ->label('Students Count')
+                    ->counts('students'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->sortable()
                     ->dateTime(),
